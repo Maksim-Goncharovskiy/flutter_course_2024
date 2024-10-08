@@ -7,4 +7,9 @@ class WeatherRepositoryDebug implements WeatherRepository {
   Future<SearchResponse> getWeatherByCity(CitySearchQuery query) async {
     return SearchResponse(15, 12, "It's really boiling hot outside dude.");
   }
+
+  @override
+  Future<SearchResponse> getWeatherByCoords(CoordsSearchQuery query) async {
+    return SearchResponse(15, 12, "It's really boiling hot outside dude.");
+  }
 }

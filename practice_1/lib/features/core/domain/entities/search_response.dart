@@ -1,13 +1,12 @@
 class SearchResponse {
-  final int temp;
-  final WeatherType type;
+  final int tempC;
+  final int feelsLikeC;
+  final String condition;
 
-  const SearchResponse(this.temp, this.type);
+  const SearchResponse(this.tempC, this.feelsLikeC, this.condition);
 
   @override
   String toString() {
-    return 'SearchResponse{temp: $temp, type: $type}';
+    return 'Weather{tempC: $tempC, feelsLikeC: $feelsLikeC, condition: $condition}';
   }
 }
-
-enum WeatherType {clear, rain, cloudy, other}

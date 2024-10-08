@@ -1,5 +1,5 @@
-class SearchQuery {
+class CitySearchQuery {
   final String city;
 
-  const SearchQuery(this.city);
+  const CitySearchQuery(this.city);
 }

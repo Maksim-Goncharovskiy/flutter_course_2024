@@ -1,1 +1,3 @@
-A sample command-line application providing basic argument parsing with an entrypoint in `bin/`.
+# Описание
+## Используемое API
+-> <a href="https://www.weatherapi.com/docs/#intro-request">WeatherAPI</a> <-

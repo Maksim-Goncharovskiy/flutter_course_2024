@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 const String url = 'http://api.weatherapi.com/v1/current.json';
-const String apiKey="3c573eef0b08472c891183328240810";
+const String apiKey="<Enter your API Key here>";
 
 
 class Weather {

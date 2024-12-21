@@ -1,25 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:practice_4/presentation/counter_flow/counter_flow.dart';
+import 'package:provider/provider.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'providers/notes_provider.dart';
+import 'screens/homepage.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NotesSetProvider(),
+      child: const NotesApp()
+    )
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // This widget is the root of your application.
+class NotesApp extends StatelessWidget {
+  const NotesApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "Notes",
       theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 26, 209, 19)),
         useMaterial3: true,
       ),
-      home: CounterFlow(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('ru'), Locale('en')],
+      home: const HomePage() // Домашняя страница со всеми заметками
     );
   }
 }
-

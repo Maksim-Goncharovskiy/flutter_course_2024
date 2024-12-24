@@ -1,47 +1,100 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:alias_game/models/round.dart';
+import 'package:alias_game/models/team.dart';
+
 
 class GameDataProvider extends ChangeNotifier {
   static const int wordsCardCount = 10;
 
   List<String> vocab;
+  
+  int remainingRounds = 1;
 
-  List<String> currentRoundWords = [];
-  Map<String, bool> currentIsMarked = {};
-  int current_points = 0;
+  List<Team> teams = [];
+
+  Round currentRound = Round();
+  Queue<int> currentQueue = Queue<int>();
+
+
 
   GameDataProvider({required this.vocab});
 
-  void startRound() {
+  // Изменение количества раундов на странице настройки игры
+  void changeCountRounds(int newCount){
+    remainingRounds = newCount;
+    notifyListeners();
+  }
+
+  void addTeam(Team team){
+    teams.add(team);
+    notifyListeners();
+  }
+
+  void delTeam(int idx){
+    teams.removeAt(idx);
+    notifyListeners();
+  }
+
+  void editTeam({required int idx, required String name}){
+    teams[idx].name = name;
+    notifyListeners();
+  }
+
+  // Добавление очков команде по завершении раунда
+  void plusPoints(int idx, int points){
+    teams[idx].score += points;
+    notifyListeners();
+  }
+
+  // В начале каждого круга создаем очередь команд
+  void makeQueue(){
+    for (int i = 0; i < teams.length; i++){
+      currentQueue.add(i);
+    }
+    notifyListeners();
+  }
+
+
+  void startRound({required int teamIdx}) {
+    currentRound.teamIdx = teamIdx;
+
     final random = Random();
     final Set<String> subset = {};
 
     while (subset.length < wordsCardCount){
       subset.add(vocab[random.nextInt(vocab.length)]);
     }
-    currentRoundWords = subset.toList();
+    currentRound.currentRoundWords = subset.toList();
 
-    for (var word in currentRoundWords) {
-      currentIsMarked[word] = false;
+    for (var word in currentRound.currentRoundWords) {
+      currentRound.currentIsMarked[word] = false;
     }
 
     notifyListeners();
   }
 
-  void recalculatePoints(){
-    current_points = currentIsMarked.values.where((item) => item).length;
-  }
 
+  // Изменение статуса слова в процессе раунда: отгадано/не отгадано
   void changeWordState({required String word, required bool? value}){
-    currentIsMarked[word] = value ?? false;
-    recalculatePoints();
+    currentRound.currentIsMarked[word] = value ?? false;
+    currentRound.recalculatePoints();
     notifyListeners();
   }
 
   void endRound(){
-    currentRoundWords = [];
-    currentIsMarked = {};
-    current_points = 0;
+    currentRound.emptyRoundData();
+    notifyListeners();
+  }
+
+  void closeGame(){
+    remainingRounds = 1;
+
+    currentRound.emptyRoundData();
+    currentQueue = Queue<int>();
     notifyListeners();
   }
 }

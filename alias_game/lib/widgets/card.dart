@@ -13,18 +13,18 @@ class _WordsCardState extends State<WordsCard> {
 
   List<Widget> makeCard({required GameDataProvider provider}){
     List<Widget> items = [];
-    for (var word in provider.currentRoundWords){
+    for (var word in provider.currentRound.currentRoundWords){
       items.add(
         CheckboxListTile(
           title: Text(word),
-          value: provider.currentIsMarked[word], 
+          value: provider.currentRound.currentIsMarked[word], 
           onChanged: (value) {
             provider.changeWordState(word: word, value: value);
           })
       );
     }
     items.add(
-      Text("Угадано слов: ${provider.current_points}")
+      Text("Угадано слов: ${provider.currentRound.currentPoints}")
     );
     return items;
   }

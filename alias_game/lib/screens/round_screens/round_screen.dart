@@ -61,13 +61,14 @@ class _RoundScreenState extends State<RoundScreen> {
           children: <Widget>[
             Text(_formatTime(_remainingTime), style: TextStyle(fontSize: 48)),
             const WordsCard(),
+            SizedBox(height: 32,),
             ElevatedButton(
               onPressed: (){
                 setState(() {
                   _remainingTime = Duration.zero;
                 });
               },
-              child: Text("Завершить"))
+              child: Text("Завершить", style: TextStyle(color: Colors.red, fontSize: 20)))
           ],
         ),
       ),

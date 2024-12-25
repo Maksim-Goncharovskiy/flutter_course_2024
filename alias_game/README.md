@@ -1,16 +1,11 @@
 # alias_game
+Проект представляет собой приложение, реализующее популярную настольную игру Alias. 
 
-A new Flutter project.
+## Функционал 
+1. Есть возможность добавлять любое количество команд и редактировать их наименования.
+2. Можно выбрать количество раундов, которые будут сыграны.
+3. В каждом раунде для команды генерируется случайным образом карточка из 10 слов, которые нужно успеть объяснить за 1.5 минуты. Отгаданные слова отмечаются, можно сразу отслеживать количество текущих очков. Есть возможность досрочно закончить раунд.
+4. После окончания всех раундов появляется страница с результатами игры. Есть возможность досрочно завершить игру в конце каждого рануда для любой команды.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Демонстрация работы приложения
+![демонстрация](./alias_demo.gif)

@@ -54,7 +54,7 @@ class _NotePageState extends State<TeamEditingScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_nameController!.text != ""){
-                        gameProvider.editTeam(idx: widget.index, name: _nameController!.text);
+                        gameProvider.editTeam(idx: widget.index, newName: _nameController!.text);
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Сохранено!"),
                           showCloseIcon: true,
@@ -76,7 +76,7 @@ class _NotePageState extends State<TeamEditingScreen> {
 
                   ElevatedButton(
                     onPressed: (){
-                      gameProvider.delTeam(widget.index);
+                      gameProvider.removeTeam(idx: widget.index);
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Удалено!"), 

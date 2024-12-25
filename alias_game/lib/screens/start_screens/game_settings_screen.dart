@@ -33,7 +33,7 @@ class GameSettingsScreen extends StatelessWidget {
                 value: gameProvider.remainingRounds,
                 onChanged: (int? newValue) {
                   if (newValue != null) {
-                    gameProvider.changeCountRounds(newValue);
+                    gameProvider.setNumRounds(newValue);
                   }
                 },
                 items: List.generate(10, (index) => DropdownMenuItem(value: index + 1, child: Text('${index + 1}'))),
@@ -70,7 +70,7 @@ class GameSettingsScreen extends StatelessWidget {
             children: [
             FloatingActionButton(
             onPressed: () {
-              gameProvider.addTeam(Team(name: "New Team", score: 0));
+              gameProvider.addTeam(name: "Team ${gameProvider.teams.length + 1}");
               Navigator.push(
                 context,
                 MaterialPageRoute(

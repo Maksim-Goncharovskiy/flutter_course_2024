@@ -21,8 +21,8 @@ class RoundResultScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Column(children: [
-            Text("Команда: ${gameProvider.teams[gameProvider.currentRound.teamIdx].name}"),
-            Text("Результат раунда: ${gameProvider.currentRound.currentPoints} очков", 
+            Text("Команда: ${gameProvider.teamName}"),
+            Text("Результат раунда: ${gameProvider.points} очков", 
             textAlign: TextAlign.center, 
             style: const TextStyle(fontSize: 25)),
 
@@ -36,14 +36,7 @@ class RoundResultScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: (){
 
-                int teamIdx = gameProvider.currentRound.teamIdx;
-                int points = gameProvider.currentRound.currentPoints;
-                gameProvider.teams[teamIdx].score += points;
-
-                gameProvider.endRound();
-
-                gameProvider.currentQueue.removeFirst();
-                print(gameProvider.currentQueue);
+                gameProvider.cancelRound();
 
                 if (gameProvider.currentQueue.isEmpty){
 

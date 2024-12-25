@@ -3,8 +3,10 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:alias_game/models/round.dart';
 import 'package:alias_game/models/team.dart';
+import 'package:alias_game/models/team_model.dart';
+
+import 'package:alias_game/models/round_model.dart';
 
 
 class GameDataProvider extends ChangeNotifier {
@@ -14,39 +16,45 @@ class GameDataProvider extends ChangeNotifier {
   
   int remainingRounds = 1;
 
-  List<Team> teams = [];
+  final TeamModel _teamModel = TeamModel();
+  List<Team> get teams => _teamModel.teams;
 
-  Round currentRound = Round();
+  final RoundModel _roundModel = RoundModel();
+
   Queue<int> currentQueue = Queue<int>();
-
-
 
   GameDataProvider({required this.vocab});
 
+  int get teamIdx => _roundModel.teamIdx;
+  String get teamName => _teamModel.teams[_roundModel.teamIdx].name;
+  int get points => _roundModel.points;
+  List<String> get roundWords => _roundModel.roundWords;
+  Map<String, bool> get isMarked => _roundModel.isMarked;
+
   // Изменение количества раундов на странице настройки игры
-  void changeCountRounds(int newCount){
+  void setNumRounds(int newCount){
     remainingRounds = newCount;
     notifyListeners();
   }
 
-  void addTeam(Team team){
-    teams.add(team);
+  void addTeam({required String name}){
+    _teamModel.addTeam(name: name);
     notifyListeners();
   }
 
-  void delTeam(int idx){
-    teams.removeAt(idx);
+  void removeTeam({required int idx}){
+    _teamModel.removeTeam(idx: idx);
     notifyListeners();
   }
 
-  void editTeam({required int idx, required String name}){
-    teams[idx].name = name;
+  void editTeam({required int idx, required String newName}){
+    _teamModel.editTeam(idx: idx, newName: newName);
     notifyListeners();
   }
 
   // Добавление очков команде по завершении раунда
-  void plusPoints(int idx, int points){
-    teams[idx].score += points;
+  void plusPoints({required int idx, required int points}){
+    _teamModel.plusPoints(idx: idx, points: points);
     notifyListeners();
   }
 
@@ -60,19 +68,22 @@ class GameDataProvider extends ChangeNotifier {
 
 
   void startRound({required int teamIdx}) {
-    currentRound.teamIdx = teamIdx;
-
     final random = Random();
     final Set<String> subset = {};
 
     while (subset.length < wordsCardCount){
       subset.add(vocab[random.nextInt(vocab.length)]);
     }
-    currentRound.currentRoundWords = subset.toList();
 
-    for (var word in currentRound.currentRoundWords) {
-      currentRound.currentIsMarked[word] = false;
+    List<String> roundWords = subset.toList();
+
+    Map<String, bool> isMarked = {};
+
+    for (var word in roundWords) {
+      isMarked[word] = false;
     }
+
+    _roundModel.startRound(teamIdx: teamIdx, words: roundWords, isMarked: isMarked);
 
     notifyListeners();
   }
@@ -80,21 +91,28 @@ class GameDataProvider extends ChangeNotifier {
 
   // Изменение статуса слова в процессе раунда: отгадано/не отгадано
   void changeWordState({required String word, required bool? value}){
-    currentRound.currentIsMarked[word] = value ?? false;
-    currentRound.recalculatePoints();
+    _roundModel.changeWordState(word: word, value: value);
+    
     notifyListeners();
   }
 
-  void endRound(){
-    currentRound.emptyRoundData();
+  void cancelRound(){
+    _teamModel.plusPoints(idx: _roundModel.teamIdx, points: _roundModel.points);
+    currentQueue.removeFirst();
+    _roundModel.cancelRound();
+
     notifyListeners();
   }
 
   void closeGame(){
+    _teamModel.emptyScores();
+
     remainingRounds = 1;
 
-    currentRound.emptyRoundData();
+    _roundModel.cancelRound();
+
     currentQueue = Queue<int>();
+
     notifyListeners();
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:alias_game/models/team.dart';
-import 'package:alias_game/providers/game_provider.dart';
+import 'package:alias_game/view_model/game_provider.dart';
 
 class TeamEditingScreen extends StatefulWidget {
   final Team team;

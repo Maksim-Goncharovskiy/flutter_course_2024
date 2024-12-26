@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:alias_game/providers/game_provider.dart';
+import 'package:alias_game/view_model/game_provider.dart';
 
 class WordsCard extends StatefulWidget {
   const WordsCard({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:alias_game/providers/game_provider.dart';
-import 'package:alias_game/screens/start_screens/team_editing_screen.dart';
-import 'package:alias_game/screens/round_screens/start_round_screen.dart';
-import 'package:alias_game/screens/start_screens/home_screen.dart';
+import 'package:alias_game/view_model/game_provider.dart';
+import 'package:alias_game/view/screens/start_screens/team_editing_screen.dart';
+import 'package:alias_game/view/screens/round_screens/start_round_screen.dart';
+import 'package:alias_game/view/screens/start_screens/home_screen.dart';
 
 
 class GameSettingsScreen extends StatelessWidget {

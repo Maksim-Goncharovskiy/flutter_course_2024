@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'round_screen.dart';
-import 'package:alias_game/providers/game_provider.dart';
+import 'package:alias_game/view_model/game_provider.dart';
 
 
 class StartRoundScreen extends StatelessWidget {

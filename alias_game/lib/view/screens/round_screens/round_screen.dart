@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'round_results_screen.dart';
-import 'package:alias_game/widgets/card.dart';
+import 'package:alias_game/view/widgets/card.dart';
 
 
 class RoundScreen extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:alias_game/screens/start_screens/home_screen.dart';
+import 'package:alias_game/view/screens/start_screens/home_screen.dart';
 import 'package:alias_game/utils/vocabulary_loader.dart';
-import 'package:alias_game/providers/game_provider.dart';
+import 'package:alias_game/view_model/game_provider.dart';
 
 
 void main() async {

@@ -10,6 +10,7 @@ class WordsCard extends StatefulWidget {
 }
 
 class _WordsCardState extends State<WordsCard> {
+  int currentPoints = 0;
 
   List<Widget> makeCard({required GameDataProvider provider}){
     List<Widget> items = [];
@@ -20,11 +21,14 @@ class _WordsCardState extends State<WordsCard> {
           value: provider.isMarked[word], 
           onChanged: (value) {
             provider.changeWordState(word: word, value: value);
+            setState(() {
+              currentPoints = provider.points;
+            });
           })
       );
     }
     items.add(
-      Text("Угадано слов: ${provider.points}")
+      Text("Угадано слов: $currentPoints")
     );
     return items;
   }
